@@ -432,6 +432,16 @@ Examples:
 
 This keeps same-repository references concise while ensuring cross-repository references remain unambiguous and reliably autolinked.
 
+### Commit references
+
+When referring to a commit in generated GitHub review text:
+
+- use the **full commit SHA as plain text**, without inline-code formatting, so GitHub can automatically shorten and link it;
+- for a commit in the **same repository**, use the bare full SHA;
+- for a commit in a **different repository**, use the fully qualified form `organization/repository@SHA`;
+- do not manually shorten a SHA when relying on GitHub's automatic linking;
+- when referring to specific source code rather than the commit as a whole, prefer an immutable source-code permalink as described below.
+
 ### Source-code links
 
 When adding links to source code in review summaries, inline comments, PR conversation comments, or related review material:
