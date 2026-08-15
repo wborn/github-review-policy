@@ -1,0 +1,77 @@
+# jUPnP
+
+The generic GitHub policy applies to jUPnP.
+
+**jUPnP is an independent project, not an openHAB project.** The generic repository-guidance rules apply to jUPnP. openHAB may be inspected as an important downstream consumer when relevant, but openHAB-specific repository rules do not automatically apply.
+
+## JU.1 Downstream compatibility
+
+For changes that may affect consumers:
+
+- inspect relevant downstream openHAB usage when useful;
+- consider API/binary/source compatibility;
+- consider OSGi metadata and package-version/range implications where relevant;
+- verify that compatibility changes are intentional and reflected consistently across affected modules/artifacts.
+
+## JU.2 Transport architecture and platform compatibility
+
+For transport, servlet, Jetty, Jakarta, or Android-related work, review with particular attention to:
+
+- preserving supported Jetty 9 usage where that compatibility is in scope;
+- preserving Android support;
+- avoiding unnecessary coupling of core APIs to a specific servlet stack;
+- avoiding forcing `javax.servlet` dependencies onto modern Jakarta consumers;
+- maintaining a clean path for future Android or alternative transport implementations;
+- keeping transport abstractions extensible rather than baking one server implementation into shared/core APIs.
+
+When a migration intentionally drops compatibility, verify that the scope and consequences are explicit rather than assuming old compatibility must always be retained.
+
+## JU.3 Jetty/server lifecycle
+
+For Jetty/server changes, where relevant:
+
+- verify server and thread-pool lifecycle;
+- check whether connectors correctly share server/thread-pool resources when designed to do so;
+- verify cleanup and shutdown;
+- consider multiple addresses/connectors rather than only a single-address happy path;
+- check resource ownership so one connector cannot incorrectly tear down resources still used by another.
+
+## JU.4 OSGi and Jakarta Whiteboard
+
+For OSGi/Jakarta Whiteboard-related changes, where relevant:
+
+- test reasoning against real OSGi configuration/service behavior rather than synthetic assumptions;
+- verify endpoint discovery and targeting;
+- consider dynamic service registration/removal;
+- consider retries and late service availability;
+- check lifecycle races and stale callbacks;
+- keep core/module boundaries free of servlet implementation details where practical.
+
+## JU.5 Major API/version migrations
+
+For major API or version migrations, where relevant:
+
+- verify version changes are consistent across parent/dependency versions;
+- inspect OSGi version ranges;
+- inspect generated resolver/metadata files when part of the build;
+- inspect downstream openHAB compatibility/tests when relevant;
+- use API compatibility reports such as japicmp/Revapi when the project workflow provides them;
+- check migration/release documentation when required by the project or scope of the change.
+
+Do not create migration-documentation findings when that topic has explicitly been excluded for the specific review.
+
+## JU.6 Review focus
+
+For jUPnP reviews, pay particular attention to:
+
+- issue/PR context;
+- downstream openHAB usage where relevant;
+- Jetty compatibility;
+- Android compatibility;
+- Jakarta migration boundaries;
+- OSGi behavior;
+- transport extensibility;
+- lifecycle/resource management;
+- API compatibility.
+
+These checks add to, rather than replace, the generic review policy.
