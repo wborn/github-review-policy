@@ -224,7 +224,20 @@ They may both be present when appropriate.
 
 ## 11. Review comments
 
-Prefer actionable inline comments attached to the relevant changed lines when a specific code location exists.
+### Default to inline comments
+
+When a finding relates to a specific changed code location, submit it as an **inline review comment by default**.
+
+Do not move an inline-capable finding into only the overall review summary or a PR conversation comment merely for convenience or because the submission tool supports those forms more easily.
+
+Omit inline comments only when:
+
+- the user explicitly asks not to use inline comments;
+- no suitable changed code location exists;
+- GitHub does not permit attaching the comment to an appropriate location; or
+- a single higher-level comment is clearly more appropriate because the finding applies broadly across multiple locations.
+
+When inline comments cannot be used, preserve the complete finding in the review summary or an appropriate PR conversation comment rather than silently dropping it.
 
 Inline comments should:
 
@@ -421,6 +434,21 @@ For the first generated review, also show the first-AI-review notice.
 
 Allow findings and wording to be refined before submission.
 
+### Showing a review on request
+
+When the user asks to **show the review**, show the complete review that would be submitted, including:
+
+- the complete review summary;
+- all proposed inline comments;
+- the intended file and line/range for each inline comment where available;
+- the proposed review state.
+
+**"Show the review" means show both the review summary and all inline review comments.** Do not show only the review summary when inline comments are part of the review.
+
+If there are no inline comments, show the review summary and make it clear that no inline comments are proposed.
+
+Showing the review does not authorize submission.
+
 ### Submission authorization
 
 Never submit any of the following until explicitly asked to submit/apply them:
@@ -440,27 +468,78 @@ Render proposed review comments as normal Markdown by default. Provide raw/copya
 
 ## 18. Review submission verification
 
+### Build an expected submission manifest
+
+Immediately before submitting a review, establish the exact expected submission:
+
+- the current PR HEAD SHA;
+- the intended review state;
+- the complete review summary;
+- the expected number of inline comments;
+- for every inline comment:
+  - its exact body;
+  - file path;
+  - line/range and side where applicable.
+
+Use this manifest when verifying the submitted review. Do not rely on memory or on the assumption that a successful API/tool response means every intended comment was submitted.
+
+### Re-check the PR HEAD before submission
+
+Immediately before submission, verify that the PR HEAD still matches the commit that was reviewed.
+
+If the HEAD changed:
+
+- do not submit inline comments against the stale diff;
+- inspect the updated changes;
+- update findings and comment locations as necessary;
+- rebuild the expected submission manifest;
+- then submit against the new HEAD.
+
+### Submit and verify the review before secondary actions
+
+When the user explicitly asks to submit/apply a review, treat the new review as the primary action.
+
+Unless technically required otherwise:
+
+1. submit the new review;
+2. immediately read the submitted review and its inline comments back from GitHub;
+3. verify it against the expected submission manifest;
+4. only after successful verification perform secondary GitHub mutations such as:
+   - resolving previous review threads;
+   - dismissing an earlier blocking review;
+   - posting additional status comments;
+   - performing other review housekeeping.
+
+Do not perform secondary GitHub mutations before the newly submitted review has been verified.
+
 ### Verify every submitted review after every write
 
-After submitting any GitHub review, do **not** assume the connector wrote the complete review correctly.
+After submitting any GitHub review, do **not** assume the connector or API wrote the complete review correctly.
 
 Immediately read the submitted review back from GitHub and verify:
 
 - the complete review summary was submitted without truncation;
-- all intended inline review comments were created;
-- the review action/status is correct (`COMMENTED`, `APPROVE`, or `REQUEST_CHANGES`);
-- the review is attached to the intended current PR/commit.
+- the submitted review state matches the intended state (`COMMENTED`, `APPROVE`, or `REQUEST_CHANGES`);
+- the review is attached to the intended PR and expected HEAD;
+- the number of submitted inline comments equals the expected number;
+- every intended inline comment is present;
+- every inline comment body is complete;
+- every inline comment is attached to the intended file and code location.
+
+Do not consider the review successfully submitted if even one intended inline comment is missing, truncated, or attached to the wrong location.
 
 Only report that the review was successfully submitted **after this verification**.
 
 This is important because connector submissions may occasionally be truncated even when GitHub itself accepts longer review bodies, and a `COMMENTED` review cannot normally be dismissed afterward.
 
-If a submitted review is truncated or otherwise incomplete:
+If a submitted review is incomplete:
 
 - explicitly report that the submission was incomplete;
-- submit a corrective complete review if appropriate;
-- verify the corrective submission afterward;
-- do not silently treat the incomplete review as successful.
+- determine exactly which parts are missing or incorrect;
+- correct only the missing or incorrectly submitted parts where the available GitHub tooling permits;
+- avoid duplicating comments that were successfully submitted;
+- read the resulting review state back from GitHub again;
+- only then report successful completion.
 
 Keep review summaries reasonably concise and place detailed findings in inline comments to reduce the impact of connector submission problems.
 
@@ -500,8 +579,12 @@ When the user asks to submit a review without separately mentioning thread resol
 7. Apply the review-voice final pass.
 8. Show the proposed review, review state, and positioning notice.
 9. Submit only after explicit authorization.
-10. Read the submitted review back from GitHub and verify it completely.
-11. Only then report successful submission.
+10. Immediately before submission, verify the PR HEAD and build the expected submission manifest.
+11. Submit the review.
+12. Immediately read the submitted review back from GitHub and verify it against the manifest.
+13. Only after the review has been verified, perform any secondary review actions.
+14. Verify those secondary actions where applicable.
+15. Only then report successful completion.
 
 ### Re-review
 
@@ -514,7 +597,11 @@ When the user asks to submit a review without separately mentioning thread resol
 7. Apply the review-voice final pass.
 8. Show the proposed review, thread-resolution plan, and any proposed dismissal of the user's own blocking review.
 9. Submit/apply only after explicit authorization.
-10. Re-read the review and thread states from GitHub.
-11. Only then report successful completion.
+10. Immediately before submission, verify the PR HEAD and build the expected submission manifest.
+11. Submit the new review.
+12. Immediately read the submitted review back from GitHub and verify it against the manifest.
+13. Only after the new review has been verified, resolve addressed threads and/or dismiss an obsolete blocking review.
+14. Read the resulting thread and review states back from GitHub and verify them.
+15. Only then report successful completion.
 
 ---
