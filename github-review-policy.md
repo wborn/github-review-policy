@@ -279,6 +279,46 @@ If the same issue occurs repeatedly:
 - use a representative inline comment;
 - mention that the same pattern should be corrected elsewhere when appropriate.
 
+### Suggested code changes
+
+When an inline review finding has a **clear, concrete, and reasonably small fix**, prefer including a GitHub suggested change so the contributor can apply it directly from the review.
+
+Use a suggested change when:
+
+- the exact replacement code is known with high confidence;
+- the change is local to the commented line or a small contiguous range;
+- the suggestion preserves the intended behavior apart from the issue being fixed;
+- the suggested code is complete and syntactically appropriate for the selected range;
+- applying the suggestion would not require additional hidden changes elsewhere.
+
+A suggested change should normally be accompanied by concise explanatory text describing **why** the change is needed. Do not provide a suggestion without explaining the underlying review finding when the reason is not obvious.
+
+Do **not** use a suggested change when:
+
+- multiple valid implementations require a design decision from the contributor;
+- the fix spans substantial or unrelated parts of the codebase;
+- additional investigation is required;
+- the suggestion would be speculative;
+- the change depends on edits that cannot be represented in the selected code range;
+- showing an exact implementation would unnecessarily prescribe a solution when the contributor should choose the implementation.
+
+Before proposing or submitting a suggested change, verify the exact code range it will replace. For every suggested change:
+
+- identify the exact file path;
+- identify the exact start and end line of the replacement range;
+- verify that the selected range belongs to the current PR diff and current PR HEAD;
+- verify that the suggestion contains the **complete replacement text for that selected range**, not merely the lines that differ;
+- verify surrounding context so applying the suggestion produces the intended code;
+- for multi-line suggestions, ensure the selected range starts and ends on the intended complete lines.
+
+Do not create a suggested change when the exact replacement range cannot be determined confidently.
+
+If the PR HEAD changes before submission, discard the previous suggestion anchoring and re-evaluate both the line/range to which the suggestion applies and the replacement code itself. Do not simply reuse line numbers from an older PR revision.
+
+Suggested changes are part of the inline review comment and follow the same rules for severity, confidence, submission authorization, and verification as other inline comments.
+
+Do not modify the contributor's branch directly merely because a suggested change can be provided. A review suggestion remains review feedback unless the user explicitly asks to apply code changes.
+
 ## 12. Source-code comment quality
 
 Review source-code comments for usefulness, accuracy, and maintainability, especially when newly added or substantially changed by the PR.
@@ -460,9 +500,10 @@ When the user asks to **show the review**, show the complete review that would b
 - the complete review summary;
 - all proposed inline comments;
 - the intended file and line/range for each inline comment where available;
+- any proposed GitHub suggested-change blocks and the exact line/range they would replace;
 - the proposed review state.
 
-**"Show the review" means show both the review summary and all inline review comments.** Do not show only the review summary when inline comments are part of the review.
+**"Show the review" means show both the review summary and all inline review comments.** Do not show only the review summary when inline comments are part of the review. Suggested-change blocks are part of their inline comments and must be shown as well.
 
 If there are no inline comments, show the review summary and make it clear that no inline comments are proposed.
 
@@ -498,7 +539,8 @@ Immediately before submitting a review, establish the exact expected submission:
 - for every inline comment:
   - its exact body;
   - file path;
-  - line/range and side where applicable.
+  - line/range and side where applicable;
+  - when it contains a suggested change, the exact replacement range and complete replacement text.
 
 Use this manifest when verifying the submitted review. Do not rely on memory or on the assumption that a successful API/tool response means every intended comment was submitted.
 
@@ -511,6 +553,7 @@ If the HEAD changed:
 - do not submit inline comments against the stale diff;
 - inspect the updated changes;
 - update findings and comment locations as necessary;
+- re-evaluate the anchoring and replacement text of every suggested change;
 - rebuild the expected submission manifest;
 - then submit against the new HEAD.
 
@@ -543,9 +586,10 @@ Immediately read the submitted review back from GitHub and verify:
 - the number of submitted inline comments equals the expected number;
 - every intended inline comment is present;
 - every inline comment body is complete;
-- every inline comment is attached to the intended file and code location.
+- every inline comment is attached to the intended file and code location;
+- every intended suggested-change block is complete, attached to the intended exact line/range, and contains the expected replacement text without truncation or formatting changes.
 
-Do not consider the review successfully submitted if even one intended inline comment is missing, truncated, or attached to the wrong location.
+Do not consider the review successfully submitted if even one intended inline comment or suggested change is missing, truncated, altered, or attached to the wrong location.
 
 Only report that the review was successfully submitted **after this verification**.
 
