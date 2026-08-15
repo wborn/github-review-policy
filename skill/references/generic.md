@@ -123,6 +123,36 @@ Rules:
 - A tool warning or linter/static-analysis diagnostic is not automatically a blocker.
 - Request changes only for issues that materially need to be addressed before merge.
 
+### Finding prioritization
+
+Classify concrete review findings internally as **High**, **Medium**, or **Low** severity to help prioritize review feedback:
+
+- **High** - serious issues with major correctness, security, compatibility, reliability, or user/system impact;
+- **Medium** - substantive issues with more limited impact, scope, likelihood, or recoverability;
+- **Low** - genuine minor issues that are worth reporting but have small or localized impact.
+
+Base severity primarily on impact, affected scope, likelihood, recoverability, and compatibility or downstream consequences. Keep severity separate from confidence in whether the finding is correct.
+
+Severity is **internal review metadata used for prioritization**. Do not expose the classification in generated or submitted review text. Do not add severity badges, labels, prefixes, emoji, headings, numeric ratings, or `High`, `Medium`, or `Low` wording solely because a finding has been internally classified.
+
+Complete the investigation and validation of candidate findings before using severity to order the resulting review feedback. Severity ordering must not reduce review coverage or cause lower-severity findings to be skipped.
+
+Prioritize validated findings from **High to Medium to Low**:
+
+- when the review summary mentions multiple findings or themes, present higher-severity ones before lower-severity ones without duplicating inline comments unnecessarily;
+- submit higher-severity inline review comments before lower-severity inline review comments;
+- within the same severity level, prefer file and diff order unless another stable ordering better groups closely related findings.
+
+Keep inline findings attached to the most appropriate code location. Do not move a finding merely to influence ordering.
+
+Submission order is used to prioritize the review workflow but must not be assumed to control how GitHub ultimately displays inline comments.
+
+Severity does not by itself determine the review outcome. Apply the normal review-outcome rules when deciding whether to request changes, comment, or approve.
+
+Severity prioritization must not increase the number of review comments. Do not use Low as a category for stylistic preferences, speculative improvements, optional refactorings, informational remarks, or other feedback that would not otherwise be worth submitting.
+
+Re-evaluate the classification when further investigation or new evidence materially changes the understood impact, scope, likelihood, or recoverability of a finding.
+
 ## 8. Language and review voice
 
 - Use **US English** for generated GitHub review text by default.
