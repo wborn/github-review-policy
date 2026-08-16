@@ -165,11 +165,13 @@ Re-evaluate the classification when further investigation or new evidence materi
   - status comments.
 - Use another language or English variant only when explicitly requested for that review/comment.
 
-### Prohibit first-person AI wording
+### Prohibit first-person reviewer/AI wording
 
-In GitHub review text generated for the user, do **not** use first-person pronouns to refer to the AI/reviewer.
+This is a **hard requirement**, not a style preference.
 
-Avoid, when referring to AI:
+In GitHub review text generated for the user, do **not** use first-person pronouns to speak as the reviewer or AI. This applies even when first-person wording would sound more natural.
+
+Avoid, when referring to the reviewer or AI:
 
 - `I`;
 - `I'm`;
@@ -181,7 +183,11 @@ Avoid, when referring to AI:
 - `mine`;
 - `we`;
 - `we've`;
+- `we'll`;
+- `we'd`;
+- `us`;
 - `our`;
+- `ours`;
 - similar first-person wording.
 
 When attribution is needed:
@@ -194,14 +200,26 @@ Examples:
 
 - Prefer: `AI found no further issues in the current changes.`
 - Prefer: `The AI review did not identify additional blocking issues.`
+- Prefer: `Two functional gaps remain in the current implementation.`
 - Prefer: `This appears to introduce a race during shutdown.`
 - Avoid: `I found no further issues.`
+- Avoid: `I see two functional gaps.`
 - Avoid: `This looks fine to me.`
 - Avoid: `My review did not find anything else.`
 
-Before presenting or submitting review text, perform a **final wording pass** specifically to catch accidental first-person AI phrasing.
+### Mandatory review-voice gate
 
-Only use first-person AI wording when explicitly requested for that specific review/comment.
+Immediately before presenting **or submitting** any GitHub review text:
+
+1. Scan the complete review text, including the summary, inline comments, PR comments, follow-up text, approval/request-changes text, dismissal reasons, and status comments, for prohibited first-person reviewer/AI wording.
+2. If any first-person wording refers to the reviewer or AI, rewrite it using `AI`, `the AI review`, or neutral technical wording.
+3. **Do not present or submit the review until this check passes.**
+
+First-person wording is allowed only when:
+
+- quoting existing text verbatim;
+- referring to a human explicitly identified by the user; or
+- the user explicitly requests first-person wording for that specific review/comment.
 
 ## 9. AI review positioning and prior maintainer reviews
 
@@ -671,7 +689,7 @@ When the user asks to submit a review without separately mentioning thread resol
    - additional AI review when a maintainer review already exists.
 5. Perform the technical review.
 6. Prepare the summary and exact inline comments.
-7. Apply the review-voice final pass.
+7. Apply the mandatory review-voice gate.
 8. Show the proposed review, review state, and positioning notice.
 9. Submit only after explicit authorization.
 10. Immediately before submission, verify the PR HEAD and build the expected submission manifest.
@@ -689,7 +707,7 @@ When the user asks to submit a review without separately mentioning thread resol
 4. Review the complete updated implementation for regressions and new issues.
 5. Determine threads to resolve or keep open.
 6. Prepare the new review.
-7. Apply the review-voice final pass.
+7. Apply the mandatory review-voice gate.
 8. Show the proposed review, thread-resolution plan, and any proposed dismissal of the user's own blocking review.
 9. Submit/apply only after explicit authorization.
 10. Immediately before submission, verify the PR HEAD and build the expected submission manifest.
