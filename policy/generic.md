@@ -470,6 +470,15 @@ When referring to a commit in generated GitHub review text:
 - do not manually shorten a SHA when relying on GitHub's automatic linking;
 - when referring to specific source code rather than the commit as a whole, prefer an immutable source-code permalink as described below.
 
+### Mandatory commit-reference gate
+
+Immediately before presenting **or submitting** any GitHub review text:
+
+1. Scan the complete review text for commit references.
+2. Re-validate every commit reference against the current **Commit references** rules above. Do not trust references carried over from earlier drafts, previous review rounds, or text prepared under an older version of this policy.
+3. Normalize any non-compliant commit reference before presentation or submission.
+4. **Do not present or submit the review until this check passes.**
+
 ### Source-code links
 
 When adding links to source code in review summaries, inline comments, PR conversation comments, or related review material:
