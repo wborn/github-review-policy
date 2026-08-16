@@ -192,31 +192,27 @@ A **substantive human maintainer review** meaningfully evaluates the proposed ch
 
 ### No prior substantive human maintainer review
 
-When preparing or submitting the first AI-generated review and no prior substantive human maintainer review is present, clearly state:
+When preparing or submitting the first AI-generated review and no prior substantive human maintainer review is present, use exactly:
 
-> This PR is being reviewed with AI first.
-
-The wording may be adapted, but it must clearly communicate that AI is performing the initial review.
+> *This PR is being reviewed with AI first.*
 
 ### Prior substantive human maintainer review exists
 
-Do not say AI is reviewing the PR first. Start with wording such as:
+Do not say AI is reviewing the PR first. Use exactly:
 
-> Additional AI review:
-
-or, when useful:
-
-> Additional AI review following the existing maintainer review:
+> *This is an additional AI review.*
 
 Complement the maintainer's review rather than unnecessarily repeating findings already covered.
 
-The positioning notice is primarily required on the first generated AI review and need not be repeated on every re-review unless useful for context. Do not promise that the user applying this policy will personally perform a later manual review unless explicitly requested. AI review must not be presented as replacing human maintainer review.
+The positioning notice is primarily required on the first generated AI review and need not be repeated on every re-review unless useful for context. Place the notice in its own paragraph, followed by a blank line before the review content. Do not promise that the user applying this policy will personally perform a later manual review unless explicitly requested. AI review must not be presented as replacing human maintainer review.
 
 ## 10. AI-assistance disclosure
 
 When an AI-assistance disclosure is appropriate or requested, use exactly:
 
-> This review was AI-assisted.
+> *This review was AI-assisted.*
+
+Place the disclosure in its own paragraph. If both a positioning notice and the AI-assistance disclosure are used, keep them as separate italicized paragraphs rather than combining them into one sentence or paragraph.
 
 The first-review positioning notice and AI-assistance disclosure serve different purposes and may both be present when appropriate.
 
@@ -353,7 +349,7 @@ If **no prior substantive human maintainer review exists**, a suitable default n
 
 If a **substantive human maintainer review already exists**, do not incorrectly state that a human maintainer still needs to perform the review merely because that wording is the default for an AI-first review. A suitable response is:
 
-> Additional AI review found no further issues in the current changes.
+> AI found no further issues in the current changes.
 
 Project-specific approval requirements still apply; do not infer that an earlier human review satisfies every repository rule unless that is established.
 
