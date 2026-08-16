@@ -648,6 +648,18 @@ Do not consider the review successfully submitted if even one intended inline co
 
 Only report that the review was successfully submitted **after this verification**.
 
+### Link to every created review
+
+After any GitHub review submission that results in a review being created, always include a **clickable Markdown link to that exact submitted review** when reporting the submission outcome, whether verification succeeds or fails.
+
+- Prefer the canonical review URL returned by GitHub.
+- Link directly to the submitted review rather than only to the pull request.
+- If GitHub does not return a direct review URL, construct the direct review permalink from the repository, pull request, and created review ID when possible.
+- Use concise link text such as `[View submitted review](<review-url>)`.
+- When verification fails, include the link together with the explanation of what is incomplete, missing, altered, or otherwise incorrect.
+- Do not omit the review link merely because follow-up correction is still required.
+- If no review was created, do not fabricate a review link.
+
 This is important because connector submissions may occasionally be truncated even when GitHub itself accepts longer review bodies, and a `COMMENTED` review cannot normally be dismissed afterward.
 
 If a submitted review is incomplete:
@@ -702,7 +714,7 @@ When the user asks to submit a review without separately mentioning thread resol
 12. Immediately read the submitted review back from GitHub and verify it against the manifest.
 13. Only after the review has been verified, perform any secondary review actions.
 14. Verify those secondary actions where applicable.
-15. Only then report successful completion.
+15. Only then report successful completion, including the clickable link to the submitted review.
 
 ### Re-review
 
@@ -720,6 +732,6 @@ When the user asks to submit a review without separately mentioning thread resol
 12. Immediately read the submitted review back from GitHub and verify it against the manifest.
 13. Only after the new review has been verified, resolve addressed threads and/or dismiss an obsolete blocking review.
 14. Read the resulting thread and review states back from GitHub and verify them.
-15. Only then report successful completion.
+15. Only then report successful completion, including the clickable link to the submitted review.
 
 ---
