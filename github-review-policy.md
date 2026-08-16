@@ -669,10 +669,21 @@ After any GitHub review submission that results in a review being created, alway
 - Prefer the canonical review URL returned by GitHub.
 - Link directly to the submitted review rather than only to the pull request.
 - If GitHub does not return a direct review URL, construct the direct review permalink from the repository, pull request, and created review ID when possible.
+- For `github.com`, when only the numeric review ID is available, use `https://github.com/<owner>/<repo>/pull/<pr>#pullrequestreview-<review-id>`.
 - Use concise link text such as `[View submitted review](<review-url>)`.
 - When verification fails, include the link together with the explanation of what is incomplete, missing, altered, or otherwise incorrect.
 - Do not omit the review link merely because follow-up correction is still required.
 - If no review was created, do not fabricate a review link.
+
+### Completion-response gate
+
+Before sending any user-facing completion response after a review was created:
+
+1. confirm the submitted review has been read back and its verification result is known;
+2. obtain the direct review URL using the rules above;
+3. inspect the completion response itself and confirm it contains a clickable Markdown link to that exact review.
+
+If the link is missing, the review-submission workflow is not complete. Add the link before sending the completion response. This gate applies whether verification succeeded or failed, because every created review must remain directly inspectable from the reported outcome.
 
 This is important because connector submissions may occasionally be truncated even when GitHub itself accepts longer review bodies, and a `COMMENTED` review cannot normally be dismissed afterward.
 
@@ -728,7 +739,7 @@ When the user asks to submit a review without separately mentioning thread resol
 12. Immediately read the submitted review back from GitHub and verify it against the manifest.
 13. Only after the review has been verified, perform any secondary review actions.
 14. Verify those secondary actions where applicable.
-15. Only then report successful completion, including the clickable link to the submitted review.
+15. Only then pass the completion-response gate and report successful completion with the clickable link to the submitted review.
 
 ### Re-review
 
@@ -746,7 +757,7 @@ When the user asks to submit a review without separately mentioning thread resol
 12. Immediately read the submitted review back from GitHub and verify it against the manifest.
 13. Only after the new review has been verified, resolve addressed threads and/or dismiss an obsolete blocking review.
 14. Read the resulting thread and review states back from GitHub and verify them.
-15. Only then report successful completion, including the clickable link to the submitted review.
+15. Only then pass the completion-response gate and report successful completion with the clickable link to the submitted review.
 
 ---
 
