@@ -20,11 +20,9 @@ if ! cmp -s github-review-policy.md "$tmp_dir/github-review-policy.md"; then
   status=1
 fi
 
-for file in generic openhab openremote jupnp maintenance; do
-  if ! cmp -s "skill/references/${file}.md" "$tmp_dir/references/${file}.md"; then
-    echo "skill/references/${file}.md is out of date. Run bash ./scripts/sync-policy.sh and commit the result." >&2
-    status=1
-  fi
-done
+if ! diff -qr skill/references "$tmp_dir/references" >/dev/null; then
+  echo "skill/references is out of date. Run bash ./scripts/sync-policy.sh and commit the result." >&2
+  status=1
+fi
 
 exit "$status"

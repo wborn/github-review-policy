@@ -18,11 +18,12 @@ The modular files under [`policy/`](policy/) are the canonical source:
 - [`policy/openhab.md`](policy/openhab.md) — openHAB additions and overrides
 - [`policy/openremote.md`](policy/openremote.md) — OpenRemote additions and overrides
 - [`policy/jupnp.md`](policy/jupnp.md) — jUPnP additions and overrides
-- [`policy/maintenance.md`](policy/maintenance.md) — policy-maintenance rules
 
 [`github-review-policy.md`](github-review-policy.md) is the generated combined policy for convenient reading, downloading, or pasting into an AI.
 
 The copies under `skill/references/` are generated from `policy/` for the portable Agent Skill.
+
+Repository-maintenance instructions are kept separately in [`AGENTS.md`](AGENTS.md) so they are not distributed as review-policy rules.
 
 ## Use with an AI
 
@@ -63,7 +64,7 @@ See [`examples/claude.md`](examples/claude.md).
 
 ## Updating the policy
 
-Edit files under `policy/`, then run:
+Read and follow [`AGENTS.md`](AGENTS.md), edit the applicable canonical file under `policy/`, then run:
 
 ```bash
 bash ./scripts/sync-policy.sh
@@ -87,6 +88,7 @@ CI runs the same check.
 - one stable, version-controlled source of truth;
 - vendor-neutral policy text;
 - generic rules separated from project-specific guidance;
+- repository-maintenance instructions separated from review-policy content;
 - portable Agent Skill packaging;
 - deterministic generated combined policy;
 - easy reuse across users and AI tools.
