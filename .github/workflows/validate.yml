@@ -2,66 +2,17 @@ name: Validate policy
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-      - name: Extend final review manifest validation
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("policy/generic.md")
-          text = path.read_text()
-
-          old_manifest = """- the current PR HEAD SHA;
-          - the intended review state;
-          - the complete review summary;
-          - the expected number of inline comments;
-          """
-          new_manifest = """- the current PR HEAD SHA;
-          - the intended review state;
-          - the complete review summary;
-          - confirmation that the mandatory review-voice gate passed;
-          - confirmation that the mandatory commit-reference gate passed, including the expected normalized form of every commit reference in the review text, or an explicit record that no commit references are present;
-          - the expected number of inline comments;
-          """
-          if new_manifest not in text:
-              if old_manifest not in text:
-                  raise SystemExit("Expected submission manifest block not found")
-              text = text.replace(old_manifest, new_manifest, 1)
-
-          old_verify = """- the review is attached to the intended PR and expected HEAD;
-          - the number of submitted inline comments equals the expected number;
-          """
-          new_verify = """- the review is attached to the intended PR and expected HEAD;
-          - every submitted commit reference matches the expected normalized form recorded in the manifest and the current commit-reference rules;
-          - the number of submitted inline comments equals the expected number;
-          """
-          if new_verify not in text:
-              if old_verify not in text:
-                  raise SystemExit("Submitted review verification block not found")
-              text = text.replace(old_verify, new_verify, 1)
-
-          path.write_text(text)
-          PY
-      - name: Regenerate and check policy files
-        run: |
-          bash ./scripts/sync-policy.sh
-          bash ./scripts/check-policy.sh
-      - name: Commit generated policy update
-        run: |
-          if ! git diff --quiet; then
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add policy/generic.md github-review-policy.md skill/references/generic.md
-            git commit -m "Extend review submission manifest validation"
-            git push origin HEAD:${{ github.head_ref }}
-          fi
+      - name: Check generated policy files
+        run: bash ./scripts/check-policy.sh
