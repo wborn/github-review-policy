@@ -617,6 +617,8 @@ Immediately before submitting a review, establish the exact expected submission:
 - the current PR HEAD SHA;
 - the intended review state;
 - the complete review summary;
+- confirmation that the mandatory review-voice gate passed;
+- confirmation that the mandatory commit-reference gate passed, including the expected normalized form of every commit reference in the review text, or an explicit record that no commit references are present;
 - the expected number of inline comments;
 - for every inline comment:
   - its exact body;
@@ -665,6 +667,7 @@ Immediately read the submitted review back from GitHub and verify:
 - the complete review summary was submitted without truncation;
 - the submitted review state matches the intended state (`COMMENTED`, `APPROVE`, or `REQUEST_CHANGES`);
 - the review is attached to the intended PR and expected HEAD;
+- every submitted commit reference matches the expected normalized form recorded in the manifest and the current commit-reference rules;
 - the number of submitted inline comments equals the expected number;
 - every intended inline comment is present;
 - every inline comment body is complete;
