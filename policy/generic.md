@@ -1,5 +1,23 @@
 # Generic GitHub Review Policy
 
+## 1. Hard postcondition for submitted reviews
+
+Whenever a GitHub review is created, the workflow is **not complete** until the user-facing completion response contains a clickable Markdown link to that exact review. This is a mandatory postcondition, not an optional reporting preference.
+
+Before sending any completion response for a created review:
+
+1. determine the exact review URL from GitHub's canonical `html_url`, or construct it from the repository, pull request number, and numeric review ID;
+2. confirm the submitted review has been read back and its verification result is known;
+3. inspect the completion response itself and confirm it contains `[View submitted review](<exact-review-url>)`.
+
+For `github.com`, a numeric review ID is sufficient to construct `https://github.com/<owner>/<repo>/pull/<pr>#pullrequestreview-<review-id>`. Construct this permalink immediately when no canonical review URL is returned; do not depend on a later read operation to provide an `html_url`.
+
+**Do not send a completion response for a created review without the exact review link.** If a review was created but its URL cannot be determined, report the submission as incomplete rather than reporting successful completion.
+
+Successful submission responses must include:
+
+> Submitted and verified: [View submitted review](<exact-review-url>)
+
 ## 2. General review approach
 
 - Always review the **current PR HEAD and current diff**. Do not rely on findings from an older revision.
@@ -651,6 +669,7 @@ After any GitHub review submission that results in a review being created, alway
 - Link directly to the submitted review rather than only to the pull request.
 - If GitHub does not return a direct review URL, construct the direct review permalink from the repository, pull request, and created review ID when possible.
 - For `github.com`, when only the numeric review ID is available, use `https://github.com/<owner>/<repo>/pull/<pr>#pullrequestreview-<review-id>`.
+- Treat a returned numeric review ID as sufficient to determine the review URL on `github.com`; construct the permalink immediately and carry it forward into the completion response instead of relying on a later read-back call to expose `html_url`.
 - Use concise link text such as `[View submitted review](<review-url>)`.
 - When verification fails, include the link together with the explanation of what is incomplete, missing, altered, or otherwise incorrect.
 - Do not omit the review link merely because follow-up correction is still required.
