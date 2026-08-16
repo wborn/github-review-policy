@@ -843,6 +843,20 @@ Do not paste raw analyzer diagnostics without context. Explain the concrete issu
 
 If multiple findings share one root cause, avoid repetitive comments.
 
+### Report and rule references
+
+When static-analysis results materially contribute to the review, make the supporting report and rule documentation easy to inspect without unnecessarily repeating links.
+
+- Link to the relevant static-analysis report **once per review** when it was used as a review source.
+- Prefer placing the report link in the review summary. If there is no suitable review summary, include it the first time a static-analysis finding is mentioned.
+- Do not repeat the report link in every inline finding.
+- When referring to a static-analysis rule in review feedback, link the rule name to its documentation on its **first occurrence in the review**.
+- For repeated findings from the same rule, do not repeat the rule-documentation link in every comment.
+- When different rules produce findings, each distinct rule may be linked once so its documentation remains directly accessible.
+- Prefer the rule-documentation URL provided by the generated report so the documentation corresponds to the analyzer and version used by the PR build.
+- Prefer the most direct accessible link to the report itself. If only a workflow run or downloadable artifact is available, link to the best available location.
+- Verify that the linked report corresponds to the current PR revision or otherwise remains applicable to the code being reviewed. Do not link an outdated report as supporting evidence for current findings.
+
 On re-review:
 
 - inspect the latest static-analysis report;
