@@ -475,6 +475,15 @@ When referring to a commit in generated GitHub review text:
 - do not manually shorten a SHA when relying on GitHub's automatic linking;
 - when referring to specific source code rather than the commit as a whole, prefer an immutable source-code permalink as described below.
 
+### Mandatory commit-reference gate
+
+Immediately before presenting **or submitting** any GitHub review text:
+
+1. Scan the complete review text for commit references.
+2. Re-validate every commit reference against the current **Commit references** rules above. Do not trust references carried over from earlier drafts, previous review rounds, or text prepared under an older version of this policy.
+3. Normalize any non-compliant commit reference before presentation or submission.
+4. **Do not present or submit the review until this check passes.**
+
 ### Source-code links
 
 When adding links to source code in review summaries, inline comments, PR conversation comments, or related review material:
@@ -608,6 +617,8 @@ Immediately before submitting a review, establish the exact expected submission:
 - the current PR HEAD SHA;
 - the intended review state;
 - the complete review summary;
+- confirmation that the mandatory review-voice gate passed;
+- confirmation that the mandatory commit-reference gate passed, including the expected normalized form of every commit reference in the review text, or an explicit record that no commit references are present;
 - the expected number of inline comments;
 - for every inline comment:
   - its exact body;
@@ -656,6 +667,7 @@ Immediately read the submitted review back from GitHub and verify:
 - the complete review summary was submitted without truncation;
 - the submitted review state matches the intended state (`COMMENTED`, `APPROVE`, or `REQUEST_CHANGES`);
 - the review is attached to the intended PR and expected HEAD;
+- every submitted commit reference matches the expected normalized form recorded in the manifest and the current commit-reference rules;
 - the number of submitted inline comments equals the expected number;
 - every intended inline comment is present;
 - every inline comment body is complete;
