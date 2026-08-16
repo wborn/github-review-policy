@@ -313,12 +313,15 @@ If the same issue occurs repeatedly:
 
 When an inline review finding has a **clear, concrete, and reasonably small fix**, prefer including a GitHub suggested change so the contributor can apply it directly from the review.
 
+Treat a GitHub suggested change as **ready-to-apply replacement code**, not as pseudocode or an illustrative example.
+
 Use a suggested change when:
 
 - the exact replacement code is known with high confidence;
 - the change is local to the commented line or a small contiguous range;
 - the suggestion preserves the intended behavior apart from the issue being fixed;
-- the suggested code is complete and syntactically appropriate for the selected range;
+- the suggested code is complete, syntactically valid, and directly applicable to the selected range;
+- the suggestion follows the repository's applicable coding, formatting, and style rules;
 - applying the suggestion would not require additional hidden changes elsewhere.
 
 A suggested change should normally be accompanied by concise explanatory text describing **why** the change is needed. Do not provide a suggestion without explaining the underlying review finding when the reason is not obvious.
@@ -329,19 +332,27 @@ Do **not** use a suggested change when:
 - the fix spans substantial or unrelated parts of the codebase;
 - additional investigation is required;
 - the suggestion would be speculative;
-- the change depends on edits that cannot be represented in the selected code range;
+- the change depends on edits that cannot be represented safely by the suggestion;
 - showing an exact implementation would unnecessarily prescribe a solution when the contributor should choose the implementation.
 
-Before proposing or submitting a suggested change, verify the exact code range it will replace. For every suggested change:
+If useful replacement code can be shown but it requires companion changes outside the selected range, such as adding or removing imports, declarations, dependencies, annotations, configuration, generated files, or other supporting edits, do not present the code as a directly applicable GitHub suggestion unless the complete fix can be represented safely. Instead, provide it as an ordinary code example and explicitly identify the additional required changes.
+
+Before proposing or submitting a suggested change, verify the exact code range it will replace and evaluate the result **as if the suggestion had already been applied**. For every suggested change:
 
 - identify the exact file path;
 - identify the exact start and end line of the replacement range;
 - verify that the selected range belongs to the current PR diff and current PR HEAD;
 - verify that the suggestion contains the **complete replacement text for that selected range**, not merely the lines that differ;
+- preserve the indentation level and surrounding whitespace required at that exact location;
+- follow applicable repository formatting, line-wrapping, brace, naming, and import conventions;
+- inspect applicable formatter, linter, style, and contributor configuration when relevant;
+- verify that identifiers introduced by the suggestion resolve correctly with the existing package, imports, declarations, dependencies, language version, and API version;
+- verify that the suggestion does not introduce missing or unused imports, unresolved references, scope errors, incompatible types, unhandled exceptions, or other obvious compilation or validation failures;
 - verify surrounding context so applying the suggestion produces the intended code;
-- for multi-line suggestions, ensure the selected range starts and ends on the intended complete lines.
+- for multi-line suggestions, ensure the selected range starts and ends on the intended complete lines;
+- when repository tooling is available and practical, validate the proposed replacement with the applicable formatter, linter, compiler, or other narrow check before submitting it.
 
-Do not create a suggested change when the exact replacement range cannot be determined confidently.
+Do not create a suggested change when the exact replacement range or a directly applicable replacement cannot be determined confidently.
 
 If the PR HEAD changes before submission, discard the previous suggestion anchoring and re-evaluate both the line/range to which the suggestion applies and the replacement code itself. Do not simply reuse line numbers from an older PR revision.
 
