@@ -12,6 +12,8 @@ Do not promote one-off pull-request instructions into the permanent policy unles
 
 ## Making changes
 
+Read and follow the repository-maintenance instructions in `AGENTS.md`.
+
 1. Edit the appropriate file under `policy/`.
 2. Run `bash ./scripts/sync-policy.sh`.
 3. Run `bash ./scripts/check-policy.sh`.

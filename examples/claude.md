@@ -9,8 +9,7 @@ skill/
     ├── generic.md
     ├── openhab.md
     ├── openremote.md
-    ├── jupnp.md
-    └── maintenance.md
+    └── jupnp.md
 ```
 
 Install/copy the skill according to the AI tool's Agent Skills mechanism.
@@ -18,7 +17,8 @@ Install/copy the skill according to the AI tool's Agent Skills mechanism.
 The skill uses progressive loading:
 
 - always load `references/generic.md`;
-- load only the relevant project-specific reference;
-- load `references/maintenance.md` only when changing the policy itself.
+- load only the relevant project-specific reference.
 
 This avoids spending context on unrelated project rules while keeping the canonical behavior consistent.
+
+The skill contains only review behavior. Repository-maintenance instructions remain in the repository's root `AGENTS.md` and are not distributed with the skill.

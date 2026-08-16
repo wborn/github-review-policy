@@ -19,8 +19,6 @@ Then read the matching project-specific reference when applicable:
 - OpenRemote: `references/openremote.md`
 - jUPnP: `references/jupnp.md`
 
-Also read `references/maintenance.md` when modifying or extending this policy itself.
-
 ## Application
 
 - Apply the generic policy to every repository.
