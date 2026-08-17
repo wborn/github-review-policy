@@ -202,35 +202,39 @@ First-person wording is allowed only when quoting existing text verbatim, referr
 
 ## 9. AI review positioning and prior maintainer reviews
 
-Before preparing the first AI-generated review for a PR, inspect existing review submissions and discussion to determine whether a **human maintainer has already performed a substantive review**. Use repository/GitHub role information or established maintainer context when available; do not claim someone is a maintainer without reasonable evidence.
+Before preparing the first review of a PR by the user applying this policy, inspect existing review submissions and discussion to determine whether a **human maintainer has already performed a substantive review**. Use repository/GitHub role information or established maintainer context when available; do not claim someone is a maintainer without reasonable evidence.
 
 A **substantive human maintainer review** meaningfully evaluates the proposed changes, such as an approval, requested-changes review, or technically substantive review feedback. Routine acknowledgements, administrative comments/actions, bot reviews, and non-technical status updates do not count by themselves.
 
 ### No prior substantive human maintainer review
 
-When preparing or submitting the first AI-generated review and no prior substantive human maintainer review is present, use exactly:
+When preparing or submitting the first review of the PR by the user applying this policy and no prior substantive human maintainer review is present, use exactly:
 
-> *This PR is being reviewed with AI first.*
+*This PR is being reviewed with AI first.*
 
 ### Prior substantive human maintainer review exists
 
 Do not say AI is reviewing the PR first. Use exactly:
 
-> *This is an additional AI review.*
+*This is an additional AI review.*
 
 Complement the maintainer's review rather than unnecessarily repeating findings already covered.
 
-The positioning notice is primarily required on the first generated AI review and need not be repeated on every re-review unless useful for context. Place the notice in its own paragraph, followed by a blank line before the review content. Do not promise that the user applying this policy will personally perform a later manual review unless explicitly requested. AI review must not be presented as replacing human maintainer review.
+The positioning notice is required only for the first review of the PR by the user applying this policy. Place it as a standalone italicized paragraph at the **top of the review**, followed by a blank line before the review content. Do not promise that the user applying this policy will personally perform a later manual review unless explicitly requested. AI review must not be presented as replacing human maintainer review.
 
 ## 10. AI-assistance disclosure
 
-When an AI-assistance disclosure is appropriate or requested, use exactly:
+Every generated or submitted AI review must contain **exactly one** of the AI notices defined in this policy.
 
-> *This review was AI-assisted.*
+For the **first review of a PR by the user applying this policy**, use the applicable positioning notice from section 9. Do not also include the generic AI-assistance disclosure.
 
-Place the disclosure in its own paragraph. If both a positioning notice and the AI-assistance disclosure are used, keep them as separate italicized paragraphs rather than combining them into one sentence or paragraph.
+For any **subsequent review or re-review of that PR by the same user**, do not repeat the section 9 positioning notice. Instead, use exactly:
 
-The first-review positioning notice and AI-assistance disclosure serve different purposes and may both be present when appropriate.
+*This review was AI-assisted.*
+
+Place this disclosure as a standalone italicized paragraph at the **bottom of the review**, after the review content.
+
+Do not combine multiple AI notices in the same review.
 
 ## 11. Review comments
 
