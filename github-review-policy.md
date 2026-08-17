@@ -229,7 +229,7 @@ A **substantive human maintainer review** meaningfully evaluates the proposed ch
 
 When preparing or submitting the first review of the PR by the user applying this policy and no prior substantive human maintainer review is present, use exactly:
 
-*This PR is being reviewed with AI first.*
+*This PR is initially reviewed with AI assistance.*
 
 ### Prior substantive human maintainer review exists
 
