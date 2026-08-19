@@ -189,7 +189,7 @@ In GitHub review text generated for the user, do not use first-person pronouns t
 
 Examples:
 
-- Prefer: `AI found no further issues in the current changes.`
+- Prefer: `AI found no further issues.`
 - Prefer: `The AI review did not identify additional blocking issues.`
 - Prefer: `Two functional gaps remain in the current implementation.`
 - Prefer: `This appears to introduce a race during shutdown.`
@@ -203,31 +203,31 @@ First-person wording is allowed only when quoting existing text verbatim, referr
 
 ## 9. AI review positioning and prior maintainer reviews
 
-Before preparing the first review of a PR by the user applying this policy, inspect existing review submissions and discussion to determine whether a **human maintainer has already performed a substantive review**. Use repository/GitHub role information or established maintainer context when available; do not claim someone is a maintainer without reasonable evidence.
+Before preparing the user's first review of a PR, inspect existing review submissions and discussion to determine whether a **human maintainer has already performed a substantive review**. Use repository/GitHub role information or established maintainer context when available; do not claim someone is a maintainer without reasonable evidence.
 
 A **substantive human maintainer review** meaningfully evaluates the proposed changes, such as an approval, requested-changes review, or technically substantive review feedback. Routine acknowledgements, administrative comments/actions, bot reviews, and non-technical status updates do not count by themselves.
 
 ### No prior substantive human maintainer review
 
-When preparing or submitting the first review of the PR by the user applying this policy and no prior substantive human maintainer review is present, use exactly:
+When preparing or submitting the user's first review of the PR and no prior substantive human maintainer review is present, use exactly:
 
-*This PR is initially reviewed with AI assistance.*
+*This is an initial AI-assisted review.*
 
 ### Prior substantive human maintainer review exists
 
 Do not say AI is reviewing the PR first. Use exactly:
 
-*This is an additional AI review.*
+*This is an additional AI-assisted review.*
 
 Complement the maintainer's review rather than unnecessarily repeating findings already covered.
 
-The positioning notice is required only for the first review of the PR by the user applying this policy. Place it as a standalone italicized paragraph at the **top of the review**, followed by a blank line before the review content. Do not promise that the user applying this policy will personally perform a later manual review unless explicitly requested. AI review must not be presented as replacing human maintainer review.
+The positioning notice is required only for the user's first review of the PR. Place it as a standalone italicized paragraph at the **top of the review**, followed by a blank line before the review content. Do not promise that the user will personally perform a later manual review unless explicitly requested. AI review does not replace manual maintainer review.
 
 ## 10. AI-assistance disclosure
 
 Every generated or submitted AI review must contain **exactly one** of the AI notices defined in this policy.
 
-For the **first review of a PR by the user applying this policy**, use the applicable positioning notice from section 9. Do not also include the generic AI-assistance disclosure.
+For the **user's first review of a PR**, use the applicable positioning notice from section 9. Do not also include the generic AI-assistance disclosure.
 
 For any **subsequent review or re-review of that PR by the same user**, do not repeat the section 9 positioning notice. Instead, use exactly:
 
@@ -366,15 +366,15 @@ A no-further-issues AI result is not automatically equivalent to human maintaine
 
 If **no prior substantive human maintainer review exists**, a suitable default no-further-issues response is:
 
-> AI found no further issues in the current changes. A human maintainer should still review the PR before merge.
+> AI found no further issues. Manual maintainer review is still needed before merge.
 
 If a **substantive human maintainer review already exists**, do not incorrectly state that a human maintainer still needs to perform the review merely because that wording is the default for an AI-first review. A suitable response is:
 
-> AI found no further issues in the current changes.
+> AI found no further issues.
 
 Project-specific approval requirements still apply; do not infer that an earlier human review satisfies every repository rule unless that is established.
 
-Whenever no blocking issues remain from an existing blocking review authored by the user applying this policy, propose clearing that blocking state even if non-blocking comments or optional suggestions remain:
+Whenever no blocking issues remain from the user's existing blocking review, propose clearing that blocking state even if non-blocking comments or optional suggestions remain:
 
 - dismiss the user's blocking review where GitHub permits after the required authorization;
 - if non-blocking findings remain, report them with a COMMENTED review/comment rather than leaving the user's obsolete CHANGES_REQUESTED state in place;
@@ -382,11 +382,11 @@ Whenever no blocking issues remain from an existing blocking review authored by 
 
 When no prior substantive maintainer review exists, a suitable dismissal reason is:
 
-> AI found no further blocking issues in the current changes. A human maintainer review is still needed before merge.
+> AI found no further blocking issues. Manual maintainer review is still needed before merge.
 
 When a substantive maintainer review already exists, a suitable dismissal reason is:
 
-> AI found no further blocking issues in the current changes.
+> AI found no further blocking issues.
 
 Resolving threads alone does not necessarily clear the PR-wide CHANGES_REQUESTED state. Dismissing the user's obsolete blocking review does not imply final human approval. Keep the blocking review in place while unresolved blocking issues remain.
 
