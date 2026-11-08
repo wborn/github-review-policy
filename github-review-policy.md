@@ -432,7 +432,9 @@ After explicit authorization, perform the agreed actions without another confirm
 
 Purely mechanical re-anchoring of unchanged review content to the same unchanged code does not by itself require renewed authorization.
 
-Render proposed review comments as normal Markdown by default. Provide raw/copyable Markdown when explicitly requested.
+If the preferred GitHub integration is unavailable or lacks required functionality, try alternative authenticated tooling such as the GitHub CLI (`gh`) or GitHub API. Prefer existing authentication credentials without exposing tokens or requiring new credentials.
+
+Render proposed review comments as normal Markdown by default. When raw/copyable Markdown is explicitly requested or submission is not possible, provide the complete review in a Markdown code block for manual submission, including all inline comments and their intended file/line or code locations.
 
 ## 18. Review submission verification
 
